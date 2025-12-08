@@ -1,0 +1,85 @@
+{
+  "name": "@fresh.codes/astro-pirsch-proxy",
+  "version": "1.0.0",
+  "description": "An Astro integration that exposes a Pirsch analytics proxy.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freshcodes/astro-pirsch-proxy.git"
+  },
+  "homepage": "https://github.com/freshcodes/astro-pirsch-proxy#readme",
+  "bugs": {
+    "url": "https://github.com/freshcodes/astro-pirsch-proxy/issues"
+  },
+  "author": {
+    "name": "Fresh Codes",
+    "email": "hello@fresh.codes",
+    "url": "https://fresh.codes"
+  },
+  "type": "module",
+  "keywords": [
+    "astro",
+    "astro-integration",
+    "pirsch"
+  ],
+  "files": [
+    "dist",
+    "src/components"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./client": "./src/env.d.ts",
+    "./endpoints/script.js": "./dist/endpoints/script.js",
+    "./endpoints/hit.js": "./dist/endpoints/hit.js",
+    "./endpoints/event.js": "./dist/endpoints/event.js",
+    "./endpoints/session.js": "./dist/endpoints/session.js",
+    "./middleware/client-hints.js": "./dist/middleware/client-hints.js",
+    "./components/PirschScript.astro": "./src/components/PirschScript.astro"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prepare": "husky",
+    "prepublishOnly": "npm run clean && npm run build",
+    "format": "prettier --write --ignore-unknown .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "lint-staged": {
+    "*": "prettier --write --ignore-unknown",
+    "*.{js,ts,astro}": "eslint --fix"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0"
+  },
+  "dependencies": {
+    "pirsch-sdk": "^2.9.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@eslint/js": "^9.39.1",
+    "@typescript-eslint/parser": "^8.48.1",
+    "@vitest/coverage-v8": "^4.0.15",
+    "astro": "^5.0.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^1.5.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1",
+    "vitest": "^4.0.15"
+  }
+}

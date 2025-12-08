@@ -1,0 +1,131 @@
+---
+import PirschScript from '@fresh.codes/astro-pirsch-proxy/components/PirschScript.astro'
+import config from 'virtual:pirsch-config'
+
+const hitPath = `${config.routePrefix}/${config.endpointNames.hit}`
+const sessionPath = `${config.routePrefix}/${config.endpointNames.session}`
+---
+
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>Session Tracking Example - Astro Pirsch Proxy</title>
+    <PirschScript data-enable-sessions='true' data-interval-ms='10000' />
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        line-height: 1.6;
+      }
+      a {
+        color: #4338ca;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .info {
+        background: #f3f4f6;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin: 1rem 0;
+      }
+      .success {
+        background: #d1fae5;
+        border-left: 4px solid #10b981;
+      }
+      code {
+        background: #e5e7eb;
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+      }
+      pre {
+        background: #1f2937;
+        color: #f3f4f6;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <p><a href='/'>← Back to Examples</a></p>
+
+    <h1>Session Tracking Example</h1>
+
+    <div class='info success'>
+      <p>
+        <strong>Session tracking is enabled!</strong> The Pirsch script will automatically
+        send session extension requests every 10 seconds.
+      </p>
+    </div>
+
+    <div class='info'>
+      <p>
+        <strong>What are sessions?</strong> Sessions track how long visitors stay
+        engaged with your site. Unlike page views (which track individual page loads),
+        sessions measure continuous engagement.
+      </p>
+    </div>
+
+    <h2>How Session Tracking Works</h2>
+    <p>Session tracking is configured with two key attributes:</p>
+    <ul>
+      <li>
+        <code>data-enable-sessions="true"</code> - Enables session tracking
+      </li>
+      <li>
+        <code>data-interval-ms="10000"</code> - Sends a session extension every 10
+        seconds (10,000ms)
+      </li>
+    </ul>
+
+    <h3>Script Configuration</h3>
+    <pre>&lt;PirschScript
+  data-enable-sessions="true"
+  data-interval-ms="10000"
+/&gt;</pre>
+
+    <div class='info'>
+      <h3>Use Cases for Session Tracking</h3>
+      <ul>
+        <li>
+          <strong>Engagement:</strong> See how long users actually interact with your
+          content
+        </li>
+        <li>
+          <strong>Bounce Rate:</strong> Distinguish between quick visits and engaged
+          sessions
+        </li>
+        <li>
+          <strong>Content Quality:</strong> Measure which pages keep users engaged
+          longer
+        </li>
+        <li>
+          <strong>User Flow:</strong> Understand how users navigate through your site
+        </li>
+      </ul>
+    </div>
+
+    <div class='info'>
+      <h3>Verify in Network Tab</h3>
+      <p>Open your browser's developer tools (Network tab) and you'll see:</p>
+      <ul>
+        <li>Initial page hit to <code>{hitPath}</code></li>
+        <li>
+          Session extensions to <code>{sessionPath}</code> every 10 seconds
+        </li>
+      </ul>
+      <p>
+        Stay on this page for at least 10 seconds to see the session extensions
+        being sent automatically!
+      </p>
+    </div>
+
+    <p><a href='/'>← Back to Examples</a></p>
+  </body>
+</html>

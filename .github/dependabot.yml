@@ -1,0 +1,48 @@
+version: 2
+updates:
+  # npm dependencies
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    open-pull-requests-limit: 8
+    groups:
+      # Astro core and related packages
+      astro:
+        patterns:
+          - 'astro'
+          - '@astrojs/*'
+      # TypeScript and compiler
+      typescript:
+        patterns:
+          - 'typescript'
+          - 'typescript-eslint'
+          - '@typescript-eslint/*'
+      # Testing framework
+      testing:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+      # Code Quality
+      code-quality:
+        patterns:
+          - 'eslint'
+          - 'eslint-*'
+          - '@eslint/*'
+          - 'prettier'
+          - 'prettier-*'
+          - 'globals'
+          - 'husky'
+          - 'lint-staged'
+
+  # GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    groups:
+      actions:
+        patterns:
+          - '*'

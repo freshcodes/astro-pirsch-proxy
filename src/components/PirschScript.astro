@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import config from 'virtual:pirsch-config'
+
+type Props = Omit<HTMLAttributes<'script'>, 'src' | 'id' | 'defer' | 'type'>
+
+const scriptPath = `${config.routePrefix}/${config.endpointNames.script}`
+const hitPath = `${config.routePrefix}/${config.endpointNames.hit}`
+const eventPath = `${config.routePrefix}/${config.endpointNames.event}`
+const sessionPath = `${config.routePrefix}/${config.endpointNames.session}`
+---
+
+<script
+  {...Astro.props}
+  defer
+  is:inline
+  type='text/javascript'
+  src={scriptPath}
+  id='pianjs'
+  data-hit-endpoint={hitPath}
+  data-event-endpoint={eventPath}
+  data-session-endpoint={sessionPath}></script>

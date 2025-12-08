@@ -1,0 +1,151 @@
+---
+import PirschScript from '@fresh.codes/astro-pirsch-proxy/components/PirschScript.astro'
+import config from 'virtual:pirsch-config'
+
+const scriptPath = `${config.routePrefix}/${config.endpointNames.script}`
+const eventPath = `${config.routePrefix}/${config.endpointNames.event}`
+---
+
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>Astro Pirsch Proxy - Examples</title>
+    <PirschScript />
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        line-height: 1.6;
+      }
+      a {
+        color: #4338ca;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .info {
+        background: #f3f4f6;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin: 1rem 0;
+      }
+      code {
+        background: #e5e7eb;
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin: 0.5rem 0;
+        padding: 1rem;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+      }
+      li:hover {
+        border-color: #4338ca;
+      }
+      button {
+        background: #4338ca;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-size: 1rem;
+        margin: 0.5rem 0.5rem 0.5rem 0;
+      }
+      button:hover {
+        background: #3730a3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Astro Pirsch Proxy - Examples</h1>
+
+    <div class='info'>
+      <p>
+        <strong>Basic Tracking:</strong> This page uses automatic tracking with the
+        Pirsch script. Page views are tracked automatically!
+      </p>
+      <p>
+        <strong>Script Source:</strong> Check the network tab - the script loads from
+        <code>{scriptPath}</code>.
+      </p>
+    </div>
+
+    <h2>Test Custom Event</h2>
+    <p>Click the button below to send a custom event to Pirsch:</p>
+    <button id='btn-event'>Send Test Event</button>
+
+    <h2>Example Pages</h2>
+    <ul>
+      <li>
+        <h3><a href='/tags'>Tags Example</a></h3>
+        <p>
+          Demonstrates how to use tags to segment your analytics data (e.g.,
+          author, category, content type).
+        </p>
+      </li>
+      <li>
+        <h3><a href='/sessions'>Session Tracking Example</a></h3>
+        <p>
+          Shows how to enable session tracking to understand user engagement and
+          time spent on your site.
+        </p>
+      </li>
+      <li>
+        <h3><a href='/404'>404 Error Tracking</a></h3>
+        <p>
+          Example of tracking 404 errors to identify broken links and missing
+          pages.
+        </p>
+      </li>
+    </ul>
+
+    <div class='info'>
+      <h3>How to Verify</h3>
+      <ol>
+        <li>Open your browser's developer tools (Network tab)</li>
+        <li>
+          Click the "Send Test Event" button and look for a POST request to <code
+            >{eventPath}</code>
+        </li>
+        <li>
+          Navigate to different pages and see requests to the proxy endpoints
+        </li>
+        <li>Check your Pirsch dashboard to see the tracked data appear</li>
+        <li>
+          Enable <code>debug: true</code> in <code>astro.config.mjs</code> to see
+          detailed logs in the terminal
+        </li>
+      </ol>
+    </div>
+
+    <script is:inline>
+      document.getElementById('btn-event')?.addEventListener('click', () => {
+        if (window.pirsch) {
+          window.pirsch('Button Click Test', {
+            meta: {
+              page: 'index',
+              action: 'test-event',
+            },
+          })
+          alert('Test event sent! Check the Network tab to see the request.')
+        } else {
+          alert(
+            'Pirsch script not loaded yet. Please wait a moment and try again.',
+          )
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+# Build output
+dist/
+
+# Generated files
+.astro/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log

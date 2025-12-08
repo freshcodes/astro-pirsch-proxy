@@ -1,0 +1,74 @@
+---
+import PirschScript from '@fresh.codes/astro-pirsch-proxy/components/PirschScript.astro'
+---
+
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>404 - Page Not Found</title>
+    <PirschScript />
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        line-height: 1.6;
+        text-align: center;
+      }
+      h1 {
+        font-size: 6rem;
+        margin: 2rem 0 1rem;
+        color: #ef4444;
+      }
+      a {
+        color: #4338ca;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .info {
+        background: #f3f4f6;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin: 2rem 0;
+        text-align: left;
+      }
+      code {
+        background: #e5e7eb;
+        padding: 0.125rem 0.25rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>404</h1>
+    <h2>Page Not Found</h2>
+    <p>The page you're looking for doesn't exist.</p>
+    <p><a href='/'>Go back home</a></p>
+
+    <div class='info'>
+      <h3>About this 404 page:</h3>
+      <p>
+        This page demonstrates tracking 404 errors with Pirsch. The
+        <code>pirschNotFound()</code> function is called when this page loads, which
+        helps you identify broken links and missing pages in your analytics.
+      </p>
+    </div>
+
+    <script is:inline data-astro-rerun>
+      if (document.readyState === 'complete') {
+        if ('pirschNotFound' in window) pirschNotFound()
+      } else {
+        document.addEventListener('readystatechange', () => {
+          if (document.readyState === 'complete') {
+            if ('pirschNotFound' in window) pirschNotFound()
+          }
+        })
+      }
+    </script>
+  </body>
+</html>
