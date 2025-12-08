@@ -69,6 +69,7 @@ export function pirschProxy(userConfig: PirschProxyConfig): AstroIntegration {
           injectScript(
             'head-inline',
             `(function() {
+  if (document.getElementById('pianjs')) return;
   const s = document.createElement('script');
   s.defer = true;
   s.src = '${scriptPath}';
