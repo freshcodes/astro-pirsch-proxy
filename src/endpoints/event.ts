@@ -7,12 +7,12 @@ import { logError } from '../lib/logger.js'
 export const prerender = false
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
-  try {
-    const body = (await request.json()) as Partial<PirschEvent>
-    await sendEvent(config, request, body, clientAddress)
-    return new Response(null, { status: 204 })
-  } catch (error) {
+  const body = (await request.json()) as Partial<PirschEvent>
+
+  // Fire and forget - don't wait for Pirsch API response
+  sendEvent(config, request, body, clientAddress).catch((error) => {
     logError('Error tracking event', error)
-    return new Response('Internal Server Error', { status: 500 })
-  }
+  })
+
+  return new Response(null, { status: 204 })
 }

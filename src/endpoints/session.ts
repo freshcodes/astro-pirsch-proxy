@@ -5,13 +5,11 @@ import { logError } from '../lib/logger.js'
 
 export const prerender = false
 
-export const POST: APIRoute = async ({ request, clientAddress }) => {
-  try {
-    await extendSession(config, request, clientAddress)
-
-    return new Response(null, { status: 204 })
-  } catch (error) {
+export const POST: APIRoute = ({ request, clientAddress }) => {
+  // Fire and forget - don't wait for Pirsch API response
+  extendSession(config, request, clientAddress).catch((error) => {
     logError('Error extending session', error)
-    return new Response('Internal Server Error', { status: 500 })
-  }
+  })
+
+  return new Response(null, { status: 204 })
 }
