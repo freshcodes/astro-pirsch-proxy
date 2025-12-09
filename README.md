@@ -124,6 +124,20 @@ import PirschScript from '@fresh.codes/astro-pirsch-proxy/components/PirschScrip
 
 The component automatically configures the script `src` and endpoint data attributes. You can pass any additional Pirsch script attributes as props.
 
+### Usage with Swup
+
+When using [Swup](https://swup.js.org/) for page transitions, you'll need to prevent the script from being re-processed on navigation. Use manual script injection and add the `data-swup-ignore-script` attribute:
+
+```astro
+---
+import PirschScript from '@fresh.codes/astro-pirsch-proxy/components/PirschScript.astro'
+---
+
+<PirschScript data-swup-ignore-script />
+```
+
+This prevents Swup from re-executing the analytics script on each navigation, which would cause duplicate page view tracking.
+
 ## TypeScript Support
 
 Add the following to your `src/env.d.ts`:
