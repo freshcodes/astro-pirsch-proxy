@@ -1,4 +1,5 @@
 import { Client as PirschSDK } from 'pirsch-sdk'
+import { PirschApiError } from 'pirsch-sdk/common'
 import type { PirschHit, PirschEvent } from 'pirsch-sdk/types'
 import type { PirschClient, ResolvedConfig } from '../types.js'
 import { logError, logDebug } from './logger.js'
@@ -39,8 +40,15 @@ export async function sendHit(
       const pirsch = createPirschClient(client, config)
       await pirsch.hit(hit)
     } catch (error) {
+      if (isRequestValidationError(error)) {
+        logDebug(
+          `Skipped hit for client ${index + 1} due to request validation failure`,
+          error,
+        )
+        return
+      }
+
       logError(`Failed to send hit to client ${index + 1}`, error)
-      throw error
     }
   })
 
@@ -70,8 +78,15 @@ export async function sendEvent(
         eventData.event_meta,
       )
     } catch (error) {
+      if (isRequestValidationError(error)) {
+        logDebug(
+          `Skipped event for client ${index + 1} due to request validation failure`,
+          error,
+        )
+        return
+      }
+
       logError(`Failed to send event to client ${index + 1}`, error)
-      throw error
     }
   })
 
@@ -95,12 +110,23 @@ export async function extendSession(
       const pirsch = createPirschClient(client, config)
       await pirsch.session(session)
     } catch (error) {
+      if (isRequestValidationError(error)) {
+        logDebug(
+          `Skipped session extension for client ${index + 1} due to request validation failure`,
+          error,
+        )
+        return
+      }
+
       logError(`Failed to extend session for client ${index + 1}`, error)
-      throw error
     }
   })
 
   await Promise.all(promises)
+}
+
+function isRequestValidationError(error: unknown): boolean {
+  return error instanceof PirschApiError && error.code === 400
 }
 
 function createPirschClient(
