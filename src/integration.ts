@@ -121,9 +121,17 @@ function resolveConfig(userConfig: PirschProxyConfig): ResolvedConfig {
   }
 
   if (resolved.debug) {
+    const safeConfig = {
+      ...resolved,
+      clients: resolved.clients.map((client) => ({
+        ...client,
+        secret: `${client.secret.slice(0, 4)}...${client.secret.slice(-4)}`,
+      })),
+    }
+
     console.log(
       '[Pirsch Proxy] Configuration:',
-      JSON.stringify(resolved, null, 2),
+      JSON.stringify(safeConfig, null, 2),
     )
   }
 
