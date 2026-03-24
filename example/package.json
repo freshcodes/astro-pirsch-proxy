@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "astro": "^5.0.0",
-    "@astrojs/node": "^9.0.0",
+    "@astrojs/node": "^10.0.0",
     "@fresh.codes/astro-pirsch-proxy": "file:.."
   }
 }
