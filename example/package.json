@@ -9,8 +9,8 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^5.0.0",
-    "@astrojs/node": "^9.0.0",
+    "astro": "^6.4.6",
+    "@astrojs/node": "^10.1.4",
     "@fresh.codes/astro-pirsch-proxy": "file:.."
   }
 }
