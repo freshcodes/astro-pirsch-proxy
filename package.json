@@ -24,7 +24,9 @@
   ],
   "files": [
     "dist",
-    "src/components"
+    "src/components",
+    "src/env.d.ts",
+    "src/types.ts"
   ],
   "exports": {
     ".": {
